@@ -1,0 +1,10 @@
+__langname: English
+# no need to translate short phrases, which are originally in English
+
+about_text: |
+    This program was made as part of my Engineering Thesis.
+    Game uses reinforcement learning alghoritm to building a database for AI.
+
+    (c) 2015-2016 Jakub Młokosiewicz
+
+    See GRAPHICS_LICENSE for graphics copyright info.

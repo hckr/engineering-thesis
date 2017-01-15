@@ -1,0 +1,78 @@
+% ------------------------------------------------------------------------
+% Wzór pracy dyplomowej zgodnie ze wzorcem
+% obowiązującym na Wydziale Informatyki ZUT
+% data: 27.06.2011 - 05.02.2016
+% autor: J. Kołodziejczyk
+% 
+% Strona tytułowa dla pracy inżynierskiej kierunek informatyka
+% ------------------------------------------------------------------------
+
+
+\def\album#1{\gdef\@album{#1}}
+\def\kierunek#1{\gdef\@kierunek{#1}}
+\def\specjalnosc#1{\gdef\@specjalnosc{#1}}
+\def\forma#1{\gdef\@forma{#1}}
+\def\angtitle#1{\gdef\@angtitle{#1}}
+\def\rok#1{\gdef\@rok{#1}}
+\def\promotor#1{\gdef\@promotor{#1}}
+\def\praca#1{\gdef\@praca{#1}}
+\def\katedra#1{\gdef\@katedra{#1}}
+\def\datazlozenia#1{\gdef\@datazlozenia{#1}}
+\def\datatematu#1{\gdef\@datatematu{#1}}
+
+
+
+\def\stronatytulowa{
+
+
+  \begin{tabular}{p{8cm}p{8cm}}
+      \includegraphics[scale=.1075]{ZUT_2.jpg}&  \includegraphics[scale=.09]{WI_2.jpg}\\
+    \end{tabular}
+             \vskip.5in
+               
+  \begin{center}
+      \large\@author\\
+  \end{center}
+  
+    \begin{tabular}{p{2cm}l}
+       &\normalsize{numer albumu: }{\@album}\\
+        &\normalsize{kierunek studiów: }{\@kierunek}\\
+        &\normalsize{specjalność: }{\@specjalnosc}\\
+        &\normalsize{forma studiów: }{\@forma}\\
+    \end{tabular}
+  
+  \vskip2.5cm
+
+    \begin{center}
+        \large{\textbf{\@title}}\\
+          \vskip0.2in
+       \large{\bfseries{\@angtitle}}\\
+    \end{center}
+    \vskip0.5in
+
+
+    %\begin{flushright}
+      %  \begin{tabular}{l}
+        \begin{center}
+        
+            praca dyplomowa \@praca \\
+                \vskip0.5in
+            napisana pod kierunkiem: \\
+           \large\textbf{\@promotor }\\
+            \normalsize\@katedra\\
+        \end{center}
+    %    \end{tabular}
+ %   \end{flushright}
+ 
+	\vskip0.3in
+	\noindent Data wydania tematu pracy: \@datatematu \\
+	Data złożenia pracy: \@datazlozenia
+	\vskip0.3in
+    \vfill
+
+        \begin{center}
+            \rm \large{\sffamily Szczecin \@rok}
+        \end{center}
+    \newpage
+
+}

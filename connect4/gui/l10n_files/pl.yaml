@@ -1,0 +1,22 @@
+__langname: polski
+Game: Gra
+New game: Nowa gra
+Help: Pomoc
+About: O...
+Language: Język
+Player: Gracz
+Human: Człowiek
+Computer (%s): Komputer (%s)
+Computer (random): Komputer (losowo)
+Game over: Koniec gry
+Player %d won!: Gracz %d wygrał!
+It's tied!: Remis!
+Start game: Rozpocznij grę
+Quit: Zamknij
+about_text: |
+    Program został stworzony jako część mojej pracy inżynierskiej.
+    Do budowania strategii gra wykorzystuje algorytm uczenia ze wzmocnieniem.
+
+    (c) 2015-2016 Jakub Młokosiewicz
+
+    Informacje o prawach autorskich do grafiki umieściłem w pliku GRAPHICS_LICENSE.

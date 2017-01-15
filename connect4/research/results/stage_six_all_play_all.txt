@@ -1,0 +1,6 @@
+                         reinforcement-stage_six_6 - 58.80% (max: 76.00%, min: 48.00%)
+                         reinforcement-stage_six_3 - 53.60% (max: 64.00%, min: 28.00%)
+                         reinforcement-stage_six_2 - 50.40% (max: 70.00%, min: 34.00%)
+                         reinforcement-stage_six_1 - 49.20% (max: 58.00%, min: 36.00%)
+                         reinforcement-stage_six_5 - 45.60% (max: 58.00%, min: 36.00%)
+                         reinforcement-stage_six_4 - 40.80% (max: 44.00%, min: 36.00%)

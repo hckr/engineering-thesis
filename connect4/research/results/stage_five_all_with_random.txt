@@ -1,0 +1,4 @@
+                     reinforcement-stage_five_0.05 - 72.04% (max: 81.10%, min: 63.45%)
+                      reinforcement-stage_five_0.1 - 67.59% (max: 77.95%, min: 59.05%)
+                    reinforcement-stage_five_0.001 - 60.79% (max: 63.30%, min: 58.00%)
+                     reinforcement-stage_five_0.01 - 58.52% (max: 68.65%, min: 53.05%)

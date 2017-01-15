@@ -1,0 +1,5 @@
+                       reinforcement-stage_two_100 - 54.50% (max: 65.00%, min: 37.50%)
+                        reinforcement-stage_two_50 - 53.00% (max: 62.50%, min: 42.50%)
+                        reinforcement-stage_two_75 - 52.00% (max: 60.00%, min: 45.00%)
+                       reinforcement-stage_two_125 - 45.50% (max: 67.50%, min: 32.50%)
+                        reinforcement-stage_two_25 - 43.50% (max: 57.50%, min: 30.00%)

@@ -1,0 +1,5 @@
+                     reinforcement-stage_four_1.00 - 58.00% (max: 72.50%, min: 32.50%)
+                     reinforcement-stage_four_0.75 - 54.00% (max: 62.50%, min: 42.50%)
+                     reinforcement-stage_four_0.50 - 52.50% (max: 92.50%, min: 30.00%)
+                     reinforcement-stage_four_0.00 - 48.50% (max: 60.00%, min: 30.00%)
+                     reinforcement-stage_four_0.25 - 36.50% (max: 47.50%, min: 22.50%)
