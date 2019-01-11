@@ -32,10 +32,20 @@ def construct_net_input(state, action):
     action = 3
 
     Example output:
-    [ 0, 0, 0, 1, 2, 0, 1, 2, 1, 3 ]
+    ???
 
     """
-    return [field if field is not None else 0 for row in state.board for field in row] + [action]
+    board = []
+    for row in state.board:
+        for field in row:
+            if field == 1:
+                board += [1, 0, 0]
+            elif field == 2:
+                board += [0, 1, 0]
+            else:
+                board += [0, 0, 1]
+    actions = [1 if action == i else 0 for i in range(len(state.board[0]))]
+    return board + actions
 
 
 class NeuralStorage:
@@ -44,7 +54,7 @@ class NeuralStorage:
         self.cols = config['board']['cols']
         self.net_file_path = config['neural_storage']['file_name']
         self.hidden_neurons = config['neural_storage']['hidden_neurons']
-        self.net_input_size = self.rows * self.cols + 1
+        self.net_input_size = self.rows * self.cols * 3 + self.cols
         if os.path.isfile(self.net_file_path):
             self.load_neural_net()
         else:
@@ -57,22 +67,24 @@ class NeuralStorage:
         n = FeedForwardNetwork()
 
         in_layer = LinearLayer(self.net_input_size)
-        bias = BiasUnit()
-        hidden_layer = SigmoidLayer(self.hidden_neurons)
+        biases = [BiasUnit() for x in range(len(self.hidden_neurons) + 1)]
+        hidden_layers = [SigmoidLayer(x) for x in self.hidden_neurons]
         out_layer = LinearLayer(1)
 
         n.addInputModule(in_layer)
-        n.addModule(bias)
-        n.addModule(hidden_layer)
+        for i in range(len(hidden_layers)):
+            n.addModule(biases[i])
+            n.addModule(hidden_layers[i])
         n.addOutputModule(out_layer)
+        n.addModule(biases[-1])
 
-        in_to_hidden = FullConnection(in_layer, hidden_layer)
-        bias_to_hidden = FullConnection(bias, hidden_layer)
-        hidden_to_out = FullConnection(hidden_layer, out_layer)
-
-        n.addConnection(in_to_hidden)
-        n.addConnection(bias_to_hidden)
-        n.addConnection(hidden_to_out)
+        n.addConnection(FullConnection(in_layer, hidden_layers[0]))
+        for i in range(len(hidden_layers)):
+            n.addConnection(FullConnection(biases[i], hidden_layers[i]))
+        for i in range(len(hidden_layers) - 1):
+            n.addConnection(FullConnection(hidden_layers[i], hidden_layers[i+1]))
+        n.addConnection(FullConnection(hidden_layers[-1], out_layer))
+        n.addConnection(FullConnection(biases[-1], out_layer))
 
         n.sortModules()
         self.neural_net = n
@@ -93,7 +105,8 @@ class NeuralStorage:
 
     def get_value_of_action(self, player_id, state, action):
         state = get_lookup_state(player_id, state)
-        return self.neural_net.activate(construct_net_input(state, action))[0]
+        val = self.neural_net.activate(construct_net_input(state, action))[0]
+        return val
 
     def update_value_of_action(self, player_id, state, action, learned_value):
         state = get_lookup_state(player_id, state)

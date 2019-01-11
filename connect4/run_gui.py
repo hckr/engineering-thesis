@@ -17,8 +17,7 @@ l10n.set_language(get_config('lang', FALLBACK_LANG))
 
 
 def should_be_visible(training_name):
-    return training_name.startswith('stage_six_6') or \
-           training_name.startswith('stage_six_1')
+    return True
 
 
 agents = [

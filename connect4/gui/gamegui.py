@@ -39,12 +39,19 @@ class GameGUI:
         root.geometry('%dx%d+%d+%d' % (width, height, pos_x, pos_y))
 
         menubar = tk.Menu(root)
+        
         gamemenu = tk.Menu(menubar, tearoff=False)
         menubar.add_cascade(label=_('Game'), menu=gamemenu)
         gamemenu.add_command(label=_('New game'), command=self.game_controller.on_new_game, accelerator='F2')
         root.bind('<F2>', self.game_controller.on_new_game)
+        gamemenu.add_command(label=_('Restart game'), command=self.game_controller.on_restart_game, accelerator='F3')
+        root.bind('<F3>', self.game_controller.on_restart_game)
+        gamemenu.add_command(label=_('Quit'), command=self.quit, accelerator='Alt+F4')
+        
+        optionsmenu = tk.Menu(menubar, tearoff=False)
+        menubar.add_cascade(label=_('Options'), menu=optionsmenu)
         languagemenu = tk.Menu(menubar, tearoff=False)
-        gamemenu.add_cascade(label=_('Language'), menu=languagemenu)
+        optionsmenu.add_cascade(label=_('Language'), menu=languagemenu)
         tk_str_lang_code = tk.StringVar()
         tk_str_lang_code.set(self.game_controller.get_current_lang())
         for lang_code, lang_name in l10n.AVAILABLE_LANGS.items():
@@ -55,7 +62,7 @@ class GameGUI:
                 )
             )
         chipsizemenu = tk.Menu(menubar, tearoff=False)
-        gamemenu.add_cascade(label=_('Chip size'), menu=chipsizemenu)
+        optionsmenu.add_cascade(label=_('Chip size'), menu=chipsizemenu)
         tk_int_chip_size = tk.IntVar()
         tk_int_chip_size.set(get_config('chip_size', DEFAULT_CHIP_SIZE))
         for chip_size in (45, 60, 85, 100):
@@ -65,7 +72,17 @@ class GameGUI:
                     tk_int_chip_size.get()
                 )
             )
-        gamemenu.add_command(label=_('Quit'), command=self.quit, accelerator='Alt+F4')
+        
+        
+        algomenu = tk.Menu(menubar, tearoff=False)
+        menubar.add_cascade(label=_('Algorithm'), menu=algomenu)
+        tk_bool_learning = tk.BooleanVar()
+        tk_bool_exploration = tk.BooleanVar()
+        algomenu.add_checkbutton(label=_('Learning'), onvalue=True, offvalue=False, variable=tk_bool_learning,
+                                    command=lambda: setattr(self.game_controller, 'learning', tk_bool_learning.get()))
+        algomenu.add_checkbutton(label=_('Exploration'), onvalue=True, offvalue=False, variable=tk_bool_exploration,
+                                    command=lambda: self.game_controller.set_exploration(tk_bool_exploration.get()))
+        
         helpmenu = tk.Menu(menubar, tearoff=False)
         menubar.add_cascade(label=_('Help'), menu=helpmenu)
         helpmenu.add_command(label=_('About'), command=self.show_about_window, accelerator='F1')

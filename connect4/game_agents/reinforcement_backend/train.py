@@ -105,6 +105,9 @@ games_per_second = float('nan')
 old_time = datetime.now()
 should_update_time = False
 
+player.save_data()
+update_meta_file(meta_name, config)
+
 while games_played < games_to_play:
     games_played += 1
     sys.stdout.write('\rPlaying game %d of %d' % (games_played, games_to_play))

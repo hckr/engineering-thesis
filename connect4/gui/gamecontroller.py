@@ -13,6 +13,8 @@ class GameController:
         self.game_state = GameState(rows, cols, needed_to_win)
         self.game_gui = GameGUI(self, title, rows, cols, chip_size)
         self.game_agents = game_agents
+        self.learning = False
+        self.set_exploration(False)
 
     def start_gui(self):
         self.game_gui.start()
@@ -46,6 +48,10 @@ class GameController:
         set_config('chip_size', chip_size)
         self.game_gui.chip_size = chip_size
         self.game_gui.restart()
+        
+    def set_exploration(self, exploration):
+        for agent in self.game_agents:
+            agent.exploration = exploration
 
     def on_new_game(self, *args):
         labels = [_(x.DRIVER_NAME) for x in self.game_agents]
@@ -54,7 +60,8 @@ class GameController:
             player1_object = self.game_agents[p1_index]
             player2_object = self.game_agents[p2_index]
             if id(player1_object) == id(player2_object):
-                player1_object.unbind_gui() # to avoid infinite recursion
+                if player1_object.IS_GUI_CONTROLLED:
+                    player1_object.unbind_gui() # to avoid infinite recursion
                 player2_object = deepcopy(player1_object)
             self.start_new_game(player1_object, player2_object)
 
@@ -72,6 +79,9 @@ class GameController:
         self.game_state.start_new_game(player1_object, player2_object)
         self.game_gui.refresh_board()
         self.before_move()
+        
+    def on_restart_game(self, *args):
+        self.start_new_game(self.game_state.players[1], self.game_state.players[2])
 
     def before_move(self):
         player = self.game_state.get_current_player()
@@ -92,6 +102,15 @@ class GameController:
                 raise ValueError('Player driver %s made illegal move.' % player.__class__.__name__)
         self.game_state.save_move(avail_move['col'])
         self.game_gui.refresh_board()
+        
+        self.game_state.next_player()
+        other_player = self.game_state.get_current_player()
+        if self.learning:
+            try:
+                other_player.learn(self.game_state.board_state)
+            except AttributeError:
+                pass
+        
         game_result = self.game_state.game_result()
         if game_result is not None:
             if game_result['result'] == 'won':
@@ -102,5 +121,4 @@ class GameController:
                 return
             raise Exception('Should not be here.')
         else:
-            self.game_state.next_player()
             self.before_move()
