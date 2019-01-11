@@ -33,7 +33,7 @@ if args.log_file and not (args.config_file or args.resume_training_name):
 
 
 def path_to_store(meta_name):
-    return os.path.join(STORED_DATA_DIR, 'reinforcement', meta_name + '.xml')
+    return os.path.join(STORED_DATA_DIR, 'reinforcement', meta_name + '.xml').replace('\\', '/')
 
 
 def delete_meta_file_with_store_data(meta_name):
