@@ -110,14 +110,21 @@ class ReinforcementPlayer:
 
     def self_play_game(self):
         board_state = BoardState(self.config['board']['rows'], self.config['board']['cols'])
+        last_actions = {1: None, 2: None}
+        last_actions_states = {1: None, 2: None}
         while True:
             for player_id in (1, 2):
+                other_player_id = other_player(player_id)
                 selected_action = self.select_action_boltzmann(player_id, board_state)
                 new_state = board_state.make_move(selected_action, player_id)
-                self.update_action_value(player_id, board_state, selected_action, new_state)
+                if last_actions[other_player_id] is not None:
+                    self.update_action_value(other_player_id, last_actions_states[other_player_id], last_actions[other_player_id], new_state)
+                if self.is_terminal(new_state):
+                    self.update_action_value(player_id, last_actions_states[player_id], last_actions[player_id], new_state)
+                    return new_state
+                last_actions_states[player_id] = board_state
+                last_actions[player_id] = selected_action
                 board_state = new_state
-                if self.is_terminal(board_state):
-                    return board_state
 
     def save_data(self):
         self.data_storage.save()

@@ -54,6 +54,7 @@ class NeuralStorage:
         self.cols = config['board']['cols']
         self.net_file_path = config['neural_storage']['file_name']
         self.hidden_neurons = config['neural_storage']['hidden_neurons']
+        self.epochs = config['neural_storage']['epochs']
         self.net_input_size = self.rows * self.cols * 3 + self.cols
         if os.path.isfile(self.net_file_path):
             self.load_neural_net()
@@ -116,4 +117,4 @@ class NeuralStorage:
         if mirror_state != state:
             mirror_action = self.mirror_action(action)
             ds.addSample(construct_net_input(mirror_state, mirror_action), learned_value)
-        self.trainer.trainOnDataset(ds)
+        self.trainer.trainOnDataset(ds, epochs=self.epochs)

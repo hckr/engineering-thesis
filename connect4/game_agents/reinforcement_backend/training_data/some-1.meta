@@ -1,0 +1,28 @@
+{
+    "board": {
+        "cols": 7,
+        "rows": 6
+    },
+    "boltzmann_temperature": 10,
+    "discount_factor": 1,
+    "estimated_optimal_future_value": "best_known",
+    "games_played": 1000000,
+    "games_to_play": 1000000,
+    "learning_rate": 0.1,
+    "needed_to_win": 4,
+    "neural_storage": {
+        "epochs": 1,
+        "file_name": "storages/stored_data/reinforcement/some-1.xml",
+        "hidden_neurons": [
+            10,
+            10
+        ]
+    },
+    "rewards": {
+        "each_move": -0.01,
+        "loss": -1,
+        "tie": 0,
+        "win": 1
+    },
+    "saving_rate": 1000
+}

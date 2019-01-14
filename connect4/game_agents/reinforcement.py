@@ -20,8 +20,6 @@ class ReinforcementDriver(object):
         self.config = get_meta_info(meta_name)
         self.store = NeuralStorage(self.config)
         self.player = ReinforcementPlayer(self.store, self.config)
-        self.previous_action = None
-        self.previous_state = None
 
     def configure_new_game(self, player_id, rows, cols, needed_to_win):
         assert rows == self.config['board']['rows']
@@ -32,6 +30,8 @@ class ReinforcementDriver(object):
         self.cols = cols
         self.needed_to_win = needed_to_win
         self.exploration = False
+        self.previous_action = None
+        self.previous_state = None
         
     def learn(self, current_state):
         if self.previous_action and self.previous_state:
